@@ -34,4 +34,4 @@
 
 1. [Mustafa Enes Koçaslan'ın Gereksinimleri](Ali-Tutar/Ali-Tutar-Gereksinimler.md)
 2. [Ahmet Kaan Başkan'ın Gereksinimleri](Grup-Uyesi-2/Grup-Uyesi-2-Gereksinimler.md)
-3. [Ünal Şener'in Gereksinimleri](Ünal-Şener-Gereksinimler.md)
+3. [Ünal Şener'in Gereksinimleri](Ünal-Şener/Ünal-Şener-Gereksinimler.md)

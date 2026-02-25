@@ -32,6 +32,6 @@
 
 # Gereksinim Dağılımları
 
-1. [Mustafa Enes Koçaslan'ın Gereksinimleri](Mustafa-Enes-Koçaslan/Mustafa-Enes-Kocaslan-Gereksinimler.md)
+1. [Mustafa Enes Koçaslan'ın Gereksinimleri](Mustafa-Enes-Kocaslan/Mustafa-Enes-Kocaslan-Gereksinimler.md)
 2. [Ahmet Kaan Başkan'ın Gereksinimleri](Ahmet-Kaan-Baskan/Ahmet-Kaan-Baskan-Gereksinimler.md)
 3. [Ünal Şener'in Gereksinimleri](Unal-Sener/Unal-Sener-Gereksinimler.md)

@@ -4,7 +4,7 @@ const cors = require('cors');
 
 const authRoutes        = require('./src/modules/auth/auth.routes');
 const lawyersRoutes     = require('./src/modules/lawyers/lawyers.routes');
-const listingsRoutes = require('./src/modules/listings/listings.routes'); // henüz yazılmadı
+const listingsRoutes = require('./src/modules/listings/listings.routes'); 
 const applicationsRoutes = require('./src/modules/applications/applications.routes');
 const adminRoutes       = require('./src/modules/admin/admin.routes');
 
@@ -19,7 +19,7 @@ app.use(express.json());
 // --- Routes ---
 app.use('/api/auth',         authRoutes);
 app.use('/api/lawyers',      lawyersRoutes);
-app.use('/api/listings', listingsRoutes); // henüz yazılmadı
+app.use('/api/listings', listingsRoutes); 
 app.use('/api/applications', applicationsRoutes);
 app.use('/api/admin',        adminRoutes);
 

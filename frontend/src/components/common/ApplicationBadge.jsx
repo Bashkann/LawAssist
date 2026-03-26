@@ -1,13 +1,10 @@
-import axiosInstance from './axiosInstance';
+import { APPLICATION_STATUS } from '../../utils/constants';
 
-const listingsApi = {
-  getAll: (params) => axiosInstance.get('/listings', { params }),
-  create: (data) => axiosInstance.post('/listings', data),
-  update: (id, data) => axiosInstance.put(`/listings/${id}`, data),
-  remove: (id) => axiosInstance.delete(`/listings/${id}`),
-  getApplications: (listingId) => axiosInstance.get(`/listings/${listingId}/applications`),
-  apply: (listingId, data) => axiosInstance.post(`/listings/${listingId}/applications`, data),
-  cancelApplication: (listingId, applicationId) => axiosInstance.delete(`/listings/${listingId}/applications/${applicationId}`),
-};
-
-export default listingsApi;
+export default function ApplicationBadge({ status }) {
+  const s = APPLICATION_STATUS[status] || APPLICATION_STATUS.pending;
+  return (
+    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${s.color}`}>
+      {s.label}
+    </span>
+  );
+}

@@ -1,6 +1,11 @@
 require('dotenv').config();
 const express = require('express');
-const cors = require('cors');
+app.use(cors({
+  origin: [
+    process.env.FRONTEND_URL,
+    'http://localhost:5173'
+  ]
+}));
 
 const authRoutes        = require('./src/modules/auth/auth.routes');
 const lawyersRoutes     = require('./src/modules/lawyers/lawyers.routes');

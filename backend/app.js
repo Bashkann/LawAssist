@@ -1,11 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-app.use(cors({
-  origin: [
-    process.env.FRONTEND_URL,
-    'http://localhost:5173'
-  ]
-}));
+const cors = require('cors');
 
 const authRoutes        = require('./src/modules/auth/auth.routes');
 const lawyersRoutes     = require('./src/modules/lawyers/lawyers.routes');
@@ -18,7 +13,12 @@ const errorHandler = require('./src/middlewares/errorHandler');
 const app = express();
 
 // --- Middleware ---
-app.use(cors());
+app.use(cors({
+  origin: [
+    process.env.FRONTEND_URL,
+    'http://localhost:5173'
+  ]
+}));
 app.use(express.json());
 
 // --- Routes ---

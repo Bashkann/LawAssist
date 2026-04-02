@@ -9,7 +9,7 @@ Bu dokümanda, web uygulamasının kullanıcı arayüzü (UI) ve kullanıcı den
 ## Grup Üyelerinin Web Frontend Görevleri
 
 1. [Mustafa Enes Koçaslan'ın Web Frontend Görevleri](Mustafa-Enes-Kocaslan/Mustafa-Enes-Kocaslan-Web-Frontend-Gorevleri.md)
-2. [Ahmet Kaan Başkan'ın Web Frontend Görevleri](Ahmet-Kaan-Baskan/Ahmet-Kaan-Baskan-Web-Frontend-.md)
+2. [Ahmet Kaan Başkan'ın Web Frontend Görevleri](Ahmet-Kaan-Baskan/Ahmet-Kaan-Baskan-Web-Frontend-Gorevleri.md)
 3. [Ünal Şener'in Web Frontend Görevleri](Unal-Sener/Unal-Sener-Web-Frontend-Gorevleri.md)
 
 ---

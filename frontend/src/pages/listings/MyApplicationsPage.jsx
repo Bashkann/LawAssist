@@ -5,6 +5,7 @@ import LoadingSpinner from "../../components/common/LoadingSpinner";
 import ApplicationBadge from "../../components/common/ApplicationBadge";
 import useAuth from "../../hooks/useAuth";
 import listingsApi from "../../api/listingsApi";
+import applicationsApi from "../../api/applicationsApi";
 import lawyersApi from "../../api/lawyersApi";
 import { formatDate } from "../../utils/formatDate";
 
@@ -199,9 +200,36 @@ export default function MyApplicationsPage() {
                       {app.status === "pending" && (
                         <div className="flex items-center gap-2 flex-shrink-0">
                           <button
+                            onClick={async () => {
+                              if (!confirm('Bu başvuruyu onaylamak istediğinize emin misiniz? İlan kapatılacak ve diğer başvurular reddedilecektir.')) return;
+                              try {
+                                await applicationsApi.approve(app.id);
+                                fetchData();
+                              } catch (err) {
+                                alert(err.response?.data?.message || 'Onaylama başarısız.');
+                              }
+                            }}
+                            className="px-4 py-2 rounded-xl text-xs font-semibold text-white transition-all"
+                            style={{ background: 'linear-gradient(135deg, #059669, #10b981)' }}>
+                            Onayla
+                          </button>
+                          <button
+                            onClick={async () => {
+                              if (!confirm('Bu başvuruyu reddetmek istediğinize emin misiniz?')) return;
+                              try {
+                                await applicationsApi.reject(app.id);
+                                fetchData();
+                              } catch (err) {
+                                alert(err.response?.data?.message || 'Reddetme başarısız.');
+                              }
+                            }}
+                            className="px-4 py-2 rounded-xl text-xs font-semibold text-red-600 border border-red-200 hover:bg-red-50 transition-all">
+                            Reddet
+                          </button>
+                          <button
                             onClick={() => handleCancel(app.listing_id, app.id)}
                             disabled={cancellingId === app.id}
-                            className="px-4 py-2 rounded-xl text-xs font-semibold text-red-600 border border-red-200 hover:bg-red-50 transition-all disabled:opacity-50">
+                            className="px-4 py-2 rounded-xl text-xs font-semibold text-gray-500 border border-gray-200 hover:bg-gray-50 transition-all disabled:opacity-50">
                             {cancellingId === app.id ? "İptal ediliyor..." : "İptal Et"}
                           </button>
                         </div>

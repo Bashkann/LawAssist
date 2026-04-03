@@ -1,9 +1,9 @@
 1. **Tevkil Başvurusunu Onayla**
-   - **API Metodu:** `PUT /applications/{applicationId}/approve`
+   - **API Metodu:** `PATCH /applications/{applicationId}/approve`
    - **Açıklama:** İlanı veren kişinin, başvuran avukatlardan birini seçip kabul etmesini sağlar. İlan sahibi gelen tevkil başvurularını inceleyerek uygun gördüğü avukatı onaylar. Bu işlem için giriş yapmış ve ilgili ilanın sahibi olmak gerekir.
 
 2. **Tevkil Başvurusunu Reddet**
-   - **API Metodu:** `PUT /applications/{applicationId}/reject`
+   - **API Metodu:** `PATCH /applications/{applicationId}/reject`
    - **Açıklama:** İlanı veren kişinin, uygun bulmadığı başvuruyu geri çevirmesini sağlar. İlan sahibi değerlendirdiği başvuruyu reddederek avukata bildirim gönderilmesini tetikler. Bu işlem için giriş yapmış ve ilgili ilanın sahibi olmak gerekir.
 
 3. **Admin Giriş Yap**
@@ -27,7 +27,7 @@
    - **Açıklama:** Sistemi kötüye kullanan avukatın hesabının admin tarafından tamamen silinmesini sağlar. Bu işlem geri alınamaz; avukata ait tüm veriler sistemden kalıcı olarak kaldırılır. Bu işlem yalnızca admin yetkisiyle erişilebilir.
 
 8. **Avukat Hesabını Belli Bir Süreliğine Pasif Hale Getir**
-   - **API Metodu:** `PUT /admin/lawyers/{lawyerId}/suspend`
+   - **API Metodu:** `PATCH /admin/lawyers/{lawyerId}/suspend`
    - **Açıklama:** Avukatın hesabının kalıcı silinmeden, geçici olarak durdurulmasını/askıya alınmasını sağlar. Admin belirli bir süre veya koşul belirterek hesabı devre dışı bırakabilir. Süre dolduğunda veya koşul kalktığında hesap yeniden aktif hale getirilebilir. Bu işlem yalnızca admin yetkisiyle erişilebilir.
 
 9. **Konumdan Bağımsız Tüm İlanları Listele**

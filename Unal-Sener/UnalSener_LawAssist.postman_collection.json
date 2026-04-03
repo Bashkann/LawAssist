@@ -1,0 +1,322 @@
+{
+  "info": {
+    "_postman_id": "8d1910fb-4486-4ec1-8b85-b57cfd8b4653",
+    "name": "UnalSener_LawAssist",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50532814"
+  },
+  "item": [
+    {
+      "name": "Approve Application",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI5ODhjYTk3LTQ3YmUtNDYyNi05N2I2LWEwNWQ1YWNhYjgxNCIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzUyNDkwOTMsImV4cCI6MTc3NTMzNTQ5M30.jaJ_vaYEbpeZ9_zWwtOuFbGp35jBlZcb1xu_9lBnOuU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/applications/86de4087-17d0-43f9-83e2-580da33e5296/approve",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "applications",
+            "86de4087-17d0-43f9-83e2-580da33e5296",
+            "approve"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reject Application",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjE1NWIwMWI5LWRiNDQtNDIzNC1iOGU5LTJjYWQwNmI2ZDE3YSIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzUyNDkyMTMsImV4cCI6MTc3NTMzNTYxM30.S7G56onGd0X-VCyMKr68gG7fdS1u0uyBsejoeOW_XC8",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/applications/2d5b4438-d6c6-4d24-a499-39e86eef873a/reject",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "applications",
+            "2d5b4438-d6c6-4d24-a499-39e86eef873a",
+            "reject"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Admin Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"admin1@lawassist.com\",\r\n  \"password\": \"law1234\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/admin/login",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Lawyers",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZjMWFmZDM3LWY1OTEtNDA3Yi1hMzJlLWNkMzczYTc1MDM3ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI1MDQwNywiZXhwIjoxNzc1MzM2ODA3fQ.XtYVUzOWQt37eYVaC44lpsdkPA_Est14cWz2LCmt1QU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/admin/lawyers",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "lawyers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Lawyer By Id",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZjMWFmZDM3LWY1OTEtNDA3Yi1hMzJlLWNkMzczYTc1MDM3ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI1MDQwNywiZXhwIjoxNzc1MzM2ODA3fQ.XtYVUzOWQt37eYVaC44lpsdkPA_Est14cWz2LCmt1QU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/admin/lawyers/caf4fca5-e591-43fd-b747-457a304972cb",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "lawyers",
+            "caf4fca5-e591-43fd-b747-457a304972cb"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Lawyer",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZjMWFmZDM3LWY1OTEtNDA3Yi1hMzJlLWNkMzczYTc1MDM3ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI1MDQwNywiZXhwIjoxNzc1MzM2ODA3fQ.XtYVUzOWQt37eYVaC44lpsdkPA_Est14cWz2LCmt1QU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"firstName\": \"AhmetGüncellendi\",\r\n  \"phone\": \"5559998877\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/admin/lawyers/caf4fca5-e591-43fd-b747-457a304972cb",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "lawyers",
+            "caf4fca5-e591-43fd-b747-457a304972cb"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Suspend Lawyer",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZjMWFmZDM3LWY1OTEtNDA3Yi1hMzJlLWNkMzczYTc1MDM3ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI1MDQwNywiZXhwIjoxNzc1MzM2ODA3fQ.XtYVUzOWQt37eYVaC44lpsdkPA_Est14cWz2LCmt1QU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PATCH",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"suspendUntil\": \"2026-06-01T00:00:00Z\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/admin/lawyers/5c86dc34-c08b-49d2-aad4-b5234e5cb8cb/suspend",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "lawyers",
+            "5c86dc34-c08b-49d2-aad4-b5234e5cb8cb",
+            "suspend"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Listings",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZjMWFmZDM3LWY1OTEtNDA3Yi1hMzJlLWNkMzczYTc1MDM3ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI1MDQwNywiZXhwIjoxNzc1MzM2ODA3fQ.XtYVUzOWQt37eYVaC44lpsdkPA_Est14cWz2LCmt1QU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/admin/listings",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "listings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Lawyer",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZjMWFmZDM3LWY1OTEtNDA3Yi1hMzJlLWNkMzczYTc1MDM3ZiIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc3NTI1MDQwNywiZXhwIjoxNzc1MzM2ODA3fQ.XtYVUzOWQt37eYVaC44lpsdkPA_Est14cWz2LCmt1QU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/admin/lawyers/d062c5f7-e624-435e-bf1d-4260b9f6d8df",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "admin",
+            "lawyers",
+            "d062c5f7-e624-435e-bf1d-4260b9f6d8df"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

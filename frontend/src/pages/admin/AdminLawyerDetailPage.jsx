@@ -15,6 +15,10 @@ export default function AdminLawyerDetailPage() {
   const [error, setError] = useState("");
   const [suspendDate, setSuspendDate] = useState("");
   const [actionLoading, setActionLoading] = useState("");
+  const [editOpen, setEditOpen] = useState(false);
+  const [editForm, setEditForm] = useState({ firstName: "", lastName: "", email: "", phone: "" });
+  const [editLoading, setEditLoading] = useState(false);
+  const [editError, setEditError] = useState("");
 
   useEffect(() => {
     const token = localStorage.getItem("adminToken");
@@ -25,7 +29,14 @@ export default function AdminLawyerDetailPage() {
   const fetchLawyer = async () => {
     try {
       const res = await adminApi.getLawyerById(id);
-      setLawyer(res.data.data);
+      const data = res.data.data;
+      setLawyer(data);
+      setEditForm({
+        firstName: data.first_name || "",
+        lastName: data.last_name || "",
+        email: data.email || "",
+        phone: data.phone || "",
+      });
     } catch (err) {
       setError(err.response?.data?.message || "Avukat bulunamadı.");
     } finally {
@@ -54,6 +65,21 @@ export default function AdminLawyerDetailPage() {
     finally { setActionLoading(""); }
   };
 
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    setEditLoading(true);
+    setEditError("");
+    try {
+      await adminApi.updateLawyer(id, editForm);
+      setEditOpen(false);
+      fetchLawyer();
+    } catch (err) {
+      setEditError(err.response?.data?.message || "Güncelleme başarısız.");
+    } finally {
+      setEditLoading(false);
+    }
+  };
+
   if (loading) return <LoadingSpinner fullScreen text="Yükleniyor..." />;
 
   return (
@@ -66,22 +92,14 @@ export default function AdminLawyerDetailPage() {
           <>
             {/* Profil */}
             <div className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden mb-4 sm:mb-6">
-              
-              {/* İnce Mavi Şerit - Diğer sayfayla uyumlu (h-12) */}
               <div className="h-12 bg-gradient-to-r from-blue-600 via-blue-500 to-indigo-500" />
-              
-              {/* HATA BURADAYDI: -mt sınıflarını bu ana kapsayıcıdan sildik */}
               <div className="px-4 sm:px-6 pb-5 sm:pb-6">
                 <div className="flex items-end gap-3 sm:gap-4 mb-4">
-                  
-                  {/* AVATAR: Yukarı kaydırma (-mt-8) işlemini sadece bu kutuya verdik */}
                   <div className="-mt-8 w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 border-4 border-white shadow flex items-center justify-center flex-shrink-0 relative z-10">
                     <span className="text-lg sm:text-xl font-bold text-white tracking-wider">
                       {lawyer.first_name?.[0]}{lawyer.last_name?.[0]}
                     </span>
                   </div>
-                  
-                  {/* İsim, Rozet ve Email */}
                   <div className="pb-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
                       <h2 className="text-base sm:text-lg font-bold text-gray-900 truncate">
@@ -94,8 +112,6 @@ export default function AdminLawyerDetailPage() {
                     <p className="text-xs sm:text-sm text-gray-500 truncate mt-0.5">{lawyer.email}</p>
                   </div>
                 </div>
-
-                {/* Alt Bilgiler */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-sm border-t border-gray-50 pt-4 mt-2">
                   <div>
                     <span className="text-xs text-gray-400">Telefon</span>
@@ -133,6 +149,10 @@ export default function AdminLawyerDetailPage() {
                       {actionLoading === "suspend" ? "..." : "Askıya Al"}
                     </button>
                   </div>
+                  <button onClick={() => setEditOpen(true)}
+                    className="px-4 py-2 rounded-lg text-sm font-semibold text-blue-600 bg-blue-50 border border-blue-200 hover:bg-blue-100 transition-all">
+                    Düzenle
+                  </button>
                   <button onClick={handleDelete} disabled={actionLoading === "delete"}
                     className="px-4 py-2 rounded-lg text-sm font-semibold text-red-600 bg-red-50 border border-red-200 hover:bg-red-100 transition-all disabled:opacity-50">
                     {actionLoading === "delete" ? "..." : "Hesabı Sil"}
@@ -188,6 +208,51 @@ export default function AdminLawyerDetailPage() {
           </>
         )}
       </main>
+
+      {/* DÜZENLE MODAL */}
+      {editOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+          <div className="bg-white rounded-2xl shadow-xl w-full max-w-md p-6">
+            <h3 className="text-lg font-bold text-gray-900 mb-4" style={{ fontFamily: "'Georgia', serif" }}>Avukat Bilgilerini Düzenle</h3>
+            <ErrorMessage message={editError} />
+            <form onSubmit={handleUpdate} className="flex flex-col gap-3 mt-3">
+              <div className="grid grid-cols-2 gap-3">
+                <div className="flex flex-col gap-1">
+                  <label className="text-xs font-medium text-gray-600">Ad</label>
+                  <input value={editForm.firstName} onChange={e => setEditForm({...editForm, firstName: e.target.value})}
+                    className="px-3 py-2 rounded-xl border border-gray-200 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+                </div>
+                <div className="flex flex-col gap-1">
+                  <label className="text-xs font-medium text-gray-600">Soyad</label>
+                  <input value={editForm.lastName} onChange={e => setEditForm({...editForm, lastName: e.target.value})}
+                    className="px-3 py-2 rounded-xl border border-gray-200 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+                </div>
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-medium text-gray-600">Email</label>
+                <input type="email" value={editForm.email} onChange={e => setEditForm({...editForm, email: e.target.value})}
+                  className="px-3 py-2 rounded-xl border border-gray-200 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+              </div>
+              <div className="flex flex-col gap-1">
+                <label className="text-xs font-medium text-gray-600">Telefon</label>
+                <input value={editForm.phone} onChange={e => setEditForm({...editForm, phone: e.target.value})}
+                  className="px-3 py-2 rounded-xl border border-gray-200 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100" />
+              </div>
+              <div className="flex items-center gap-2 mt-2">
+                <button type="submit" disabled={editLoading}
+                  className="flex-1 py-2.5 rounded-xl text-white text-sm font-semibold disabled:opacity-50"
+                  style={{ background: "linear-gradient(135deg, #1d4ed8, #2563eb)" }}>
+                  {editLoading ? "Kaydediliyor..." : "Kaydet"}
+                </button>
+                <button type="button" onClick={() => { setEditOpen(false); setEditError(""); }}
+                  className="px-4 py-2.5 rounded-xl text-sm font-semibold text-gray-600 border border-gray-200 hover:bg-gray-50">
+                  İptal
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

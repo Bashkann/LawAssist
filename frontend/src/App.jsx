@@ -11,9 +11,10 @@ import ProfilePage from "./pages/lawyer/ProfilePage";
 import EditProfilePage from "./pages/lawyer/EditProfilePage";
 import MyListingsPage from "./pages/lawyer/MyListingsPage";
 
-// Kaan'ın sayfaları
+// Listings ve Applications sayfaları 
 import ListingsPage from "./pages/listings/ListingsPage";
 import MyApplicationsPage from "./pages/listings/MyApplicationsPage";
+import ListingApplicationsPage from "./pages/listings/ListingApplicationsPage";
 
 // Admin sayfaları (Ünal'ın kısmı)
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
@@ -35,7 +36,7 @@ export default function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
 
-        {/* ==================== LAWYER (Enes) ==================== */}
+        {/* ==================== LAWYER  ==================== */}
         <Route path="/lawyers/:id" element={
           <ProtectedRoute><ProfilePage /></ProtectedRoute>
         } />
@@ -46,15 +47,16 @@ export default function App() {
           <ProtectedRoute><MyListingsPage /></ProtectedRoute>
         } />
 
-        {/* ==================== KAAN ==================== */}
+        {/* ==================== Listngs ==================== */}
         <Route path="/listings" element={
           <ProtectedRoute><ListingsPage /></ProtectedRoute>
         } />
         <Route path="/my-applications" element={
           <ProtectedRoute><MyApplicationsPage /></ProtectedRoute>
         } />
+        <Route path="/gelen-basvurular" element={<ProtectedRoute><ListingApplicationsPage /></ProtectedRoute>} />
 
-        {/* ==================== ADMIN (Ünal) ==================== */}
+        {/* ==================== ADMIN ==================== */}
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
         <Route path="/admin/lawyers" element={<AdminLawyersPage />} />

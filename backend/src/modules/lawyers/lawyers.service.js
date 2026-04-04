@@ -177,4 +177,26 @@ const deleteLawyer = async (lawyerId, reqUser) => {
   );
 };
 
-module.exports = { getLawyerById, updateLawyerById, getLawyerListings, deleteLawyer };
+const getLawyerApplications = async (lawyerId, currentUser) => {
+  if (currentUser.id !== lawyerId) {
+    throw new (require('../../utils/apiError'))(403, 'Yalnızca kendi başvurularınızı görebilirsiniz.');
+  }
+
+  const { rows } = await pool.query(
+    `SELECT a.id, a.listing_id, a.note, a.status, a.created_at, a.updated_at,
+            l.title AS listing_title, l.city AS listing_city,
+            l.courthouse AS listing_courthouse, l.hearing_date AS listing_hearing_date,
+            l.status AS listing_status,
+            lw.first_name AS owner_first_name, lw.last_name AS owner_last_name
+     FROM applications a
+     JOIN listings l ON l.id = a.listing_id
+     JOIN lawyers lw ON lw.id = l.owner_id
+     WHERE a.applicant_id = $1
+     ORDER BY a.created_at DESC`,
+    [lawyerId]
+  );
+
+  return rows;
+};
+
+module.exports = { getLawyerById, updateLawyerById, getLawyerListings, deleteLawyer, getLawyerApplications };

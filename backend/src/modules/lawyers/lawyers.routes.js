@@ -3,11 +3,14 @@ const router = express.Router();
 
 const authenticate = require('../../middlewares/authenticate');
 const requireLawyer = require('../../middlewares/requireLawyer');
-const { getProfile, updateProfile, getListings, deleteProfile } = require('./lawyers.controller');
+const { getProfile, updateProfile, getListings, deleteProfile, getApplications } = require('./lawyers.controller');
 const { validateLawyerId, validateUpdateLawyer } = require('./lawyers.validation');
 
 // GET /api/lawyers/:id/listings?status=active
 router.get('/:id/listings', authenticate, requireLawyer, validateLawyerId, getListings);
+
+// GET /api/lawyers/:id/applications — avukatın yaptığı başvurular
+router.get('/:id/applications', authenticate, requireLawyer, validateLawyerId, getApplications);
 
 // GET /api/lawyers/:id
 router.get('/:id', authenticate, requireLawyer, validateLawyerId, getProfile);

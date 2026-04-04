@@ -1,4 +1,4 @@
-const { getLawyerById, updateLawyerById, getLawyerListings, deleteLawyer } = require('./lawyers.service');
+const { getLawyerById, updateLawyerById, getLawyerListings, deleteLawyer, getLawyerApplications } = require('./lawyers.service');
 
 /**
  * GET /api/lawyers/:id
@@ -58,4 +58,17 @@ const deleteProfile = async (req, res, next) => {
   }
 };
 
-module.exports = { getProfile, updateProfile, getListings, deleteProfile };
+const getApplications = async (req, res, next) => {
+  try {
+    const applications = await getLawyerApplications(req.params.id, req.user);
+    res.status(200).json({
+      success: true,
+      data: { applications },
+    });
+  } catch (err) {
+    next(err);
+  }
+};
+
+
+module.exports = { getProfile, updateProfile, getListings, deleteProfile, getApplications };

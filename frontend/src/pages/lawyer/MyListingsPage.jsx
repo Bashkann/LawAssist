@@ -7,6 +7,7 @@ import ApplicationCard from "../../components/common/ApplicationCard";
 import useAuth from "../../hooks/useAuth";
 import lawyersApi from "../../api/lawyersApi";
 import listingsApi from "../../api/listingsApi";
+import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/formatDate";
 import { LISTING_STATUS, TURKEY_CITIES, getCourthousesByCity } from "../../utils/constants";
 
@@ -18,6 +19,7 @@ export default function MyListingsPage() {
   const [filter, setFilter] = useState("");
   const [showCreate, setShowCreate] = useState(false);
   const [expandedId, setExpandedId] = useState(null);
+  const [editingId, setEditingId] = useState(null);
   const [applications, setApplications] = useState({});
 
   const fetchListings = async () => {
@@ -67,17 +69,21 @@ export default function MyListingsPage() {
             <h1 className="text-2xl font-bold text-gray-900" style={{ fontFamily: "'Georgia', serif" }}>İlanlarım</h1>
             <p className="text-sm text-gray-400 mt-1">Tevkil ilanlarınızı yönetin</p>
           </div>
-          <button onClick={() => setShowCreate(!showCreate)}
-            className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all"
-            style={{ background: "linear-gradient(135deg, #1d4ed8, #2563eb)", boxShadow: "0 4px 15px rgba(37,99,235,0.25)" }}>
-            {showCreate ? "Vazgeç" : "+ Yeni İlan"}
-          </button>
+          <div className="flex items-center gap-3">
+            <Link to="/gelen-basvurular"
+              className="px-5 py-2.5 rounded-xl text-sm font-semibold text-blue-600 border border-blue-200 hover:bg-blue-50 transition-all">
+              Gelen Başvurular
+            </Link>
+            <button onClick={() => setShowCreate(!showCreate)}
+              className="px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition-all"
+              style={{ background: "linear-gradient(135deg, #1d4ed8, #2563eb)", boxShadow: "0 4px 15px rgba(37,99,235,0.25)" }}>
+              {showCreate ? "Vazgeç" : "+ Yeni İlan"}
+            </button>
+          </div>
         </div>
 
-        {/* İlan oluşturma formu */}
         {showCreate && <CreateListingForm onCreated={() => { setShowCreate(false); fetchListings(); }} />}
 
-        {/* Filtre tabları */}
         <div className="flex flex-wrap gap-2 mb-6">
           {[
             { key: "", label: "Tümü" },
@@ -123,6 +129,10 @@ export default function MyListingsPage() {
                       {listing.description && <p className="text-sm text-gray-400 mt-2 line-clamp-2">{listing.description}</p>}
                     </div>
                     <div className="flex items-center gap-2 flex-shrink-0">
+                      <button onClick={() => setEditingId(editingId === listing.id ? null : listing.id)}
+                        className="px-3 py-1.5 rounded-lg text-xs font-medium text-gray-600 border border-gray-200 hover:border-blue-300 hover:text-blue-600 transition-all">
+                        {editingId === listing.id ? "Vazgeç" : "Düzenle"}
+                      </button>
                       <button onClick={() => toggleExpand(listing.id)}
                         className="px-3 py-1.5 rounded-lg text-xs font-medium text-blue-600 border border-blue-200 hover:bg-blue-50 transition-all">
                         {expandedId === listing.id ? "Gizle" : "Başvurular"}
@@ -136,6 +146,14 @@ export default function MyListingsPage() {
                     </div>
                   </div>
                 </div>
+
+                {/* Düzenleme formu */}
+                {editingId === listing.id && (
+                  <div className="border-t border-gray-100 px-5 py-4 bg-blue-50/30">
+                    <h4 className="text-sm font-semibold text-gray-700 mb-3">İlanı Düzenle</h4>
+                    <EditListingForm listing={listing} onUpdated={() => { setEditingId(null); fetchListings(); }} />
+                  </div>
+                )}
 
                 {/* Başvurular */}
                 {expandedId === listing.id && (
@@ -236,5 +254,81 @@ function CreateListingForm({ onCreated }) {
         </div>
       </form>
     </div>
+  );
+}
+
+function EditListingForm({ listing, onUpdated }) {
+  const [form, setForm] = useState({
+    title: listing.title || "",
+    description: listing.description || "",
+    city: listing.city || "",
+    courthouse: listing.courthouse || "",
+    hearing_date: listing.hearing_date ? listing.hearing_date.split("T")[0] : "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    if (error) setError("");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!form.title || !form.city || !form.courthouse || !form.hearing_date) {
+      setError("Başlık, şehir, adliye ve duruşma tarihi zorunludur."); return;
+    }
+    setLoading(true);
+    try {
+      await listingsApi.update(listing.id, form);
+      onUpdated();
+    } catch (err) {
+      setError(err.response?.data?.message || "Güncelleme başarısız.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const inputClass = "w-full px-4 py-3 rounded-xl border border-gray-200 text-gray-900 placeholder-gray-400 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-100";
+
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      <ErrorMessage message={error} />
+      <div className="flex flex-col gap-1">
+        <label className="text-xs font-medium text-gray-600">Başlık *</label>
+        <input type="text" name="title" value={form.title} onChange={handleChange} className={inputClass} />
+      </div>
+      <div className="flex flex-col gap-1">
+        <label className="text-xs font-medium text-gray-600">Açıklama</label>
+        <textarea name="description" value={form.description} onChange={handleChange} rows={2} className={`${inputClass} resize-none`} />
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-medium text-gray-600">Şehir *</label>
+          <select name="city" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value, courthouse: "" })} className={`${inputClass} bg-white`}>
+            <option value="">Şehir seçin</option>
+            {TURKEY_CITIES.map(city => <option key={city} value={city}>{city}</option>)}
+          </select>
+        </div>
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-medium text-gray-600">Adliye *</label>
+          <select name="courthouse" value={form.courthouse} onChange={handleChange} className={`${inputClass} bg-white`} disabled={!form.city}>
+            <option value="">{form.city ? "Adliye seçin" : "Önce şehir seçin"}</option>
+            {getCourthousesByCity(form.city).map(ch => <option key={ch} value={ch}>{ch}</option>)}
+          </select>
+        </div>
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-medium text-gray-600">Duruşma Tarihi *</label>
+          <input type="date" name="hearing_date" value={form.hearing_date} onChange={handleChange} className={inputClass} />
+        </div>
+      </div>
+      <div className="flex gap-2">
+        <button type="submit" disabled={loading}
+          className="px-5 py-2 rounded-xl text-sm font-semibold text-white transition-all disabled:opacity-50"
+          style={{ background: "linear-gradient(135deg, #1d4ed8, #2563eb)" }}>
+          {loading ? "Kaydediliyor..." : "Kaydet"}
+        </button>
+      </div>
+    </form>
   );
 }

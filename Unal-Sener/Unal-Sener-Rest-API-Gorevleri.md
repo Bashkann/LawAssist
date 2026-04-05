@@ -1,6 +1,6 @@
 # Ünal Şener'in REST API Metotları
 
-**Back-end Domain Adresi:** [https://lawassist-backend-nu.vercel.app/api](https://lawassist-backend-nu.vercel.app/api)
+**Back-end Domain Adresi:** [https://lawassist-backend-nu.vercel.app/](https://lawassist-backend-nu.vercel.app/)
 
 **API Test Videosu:** [Youtube Video](https://youtu.be/onhXOSKdrdw)
 

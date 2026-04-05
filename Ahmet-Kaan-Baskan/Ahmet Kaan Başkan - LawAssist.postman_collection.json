@@ -1,0 +1,338 @@
+{
+  "info": {
+    "_postman_id": "05017cc2-78f5-486a-99e4-11f01f6ab830",
+    "name": "Ahmet Kaan Başkan - LawAssist",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50534932",
+    "_collection_link": "https://go.postman.co/collection/50534932-05017cc2-78f5-486a-99e4-11f01f6ab830?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Tevkil İlanı Oluştur",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE1MjliNTU3LWVmM2UtNDZjNi04ZTMzLTY5ODNmOGQ5YTUwNCIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzUzNDE4MzUsImV4cCI6MTc3NTQyODIzNX0.2Wc4BRMhqXdLnOXh3GfDlDm4tZmxcro7p7d3Mc2JrY0",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Başvurulacak Dava\",\n  \"description\": \"Başvurulacak.\",\n  \"city\": \"Adana\",\n  \"courthouse\": \"Adana Adliyesi\",\n  \"hearing_date\": \"2026-08-20\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/listings",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "listings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "İlanları şehre göre filtrele",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/listings?city=Ankara",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "listings"
+          ],
+          "query": [
+            {
+              "key": "city",
+              "value": "Ankara"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "İlanları tarihe göre filtrele",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/listings?date=2026-04-13",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "listings"
+          ],
+          "query": [
+            {
+              "key": "date",
+              "value": "2026-04-13"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "İlanları adliyeye göre filtrele",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/listings?courthouse=Adıyaman%20Adliyesi",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "listings"
+          ],
+          "query": [
+            {
+              "key": "courthouse",
+              "value": "Adıyaman%20Adliyesi"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Tevkil ilanını güncelle",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE1MjliNTU3LWVmM2UtNDZjNi04ZTMzLTY5ODNmOGQ5YTUwNCIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzU0MTI1MzEsImV4cCI6MTc3NTQ5ODkzMX0.fD6W-orvnZ0fQYm45UGZuWyuQer5WHoSOTmw2PyulbY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"Güncel: Dosya no 2024/123. Ek olarak bir evrak sunulacak.\",\n  \"hearing_date\": \"2026-05-16\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/listings/73844e96-8a35-482c-a307-2d5eacf1b64b",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "listings",
+            "73844e96-8a35-482c-a307-2d5eacf1b64b"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Tevkil ilanını sil",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE1MjliNTU3LWVmM2UtNDZjNi04ZTMzLTY5ODNmOGQ5YTUwNCIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzU0MTI1MzEsImV4cCI6MTc3NTQ5ODkzMX0.fD6W-orvnZ0fQYm45UGZuWyuQer5WHoSOTmw2PyulbY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/listings/73844e96-8a35-482c-a307-2d5eacf1b64b",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "listings",
+            "73844e96-8a35-482c-a307-2d5eacf1b64b"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Kişinin kendi ilanına yapılan başvuruları listele",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImE1MjliNTU3LWVmM2UtNDZjNi04ZTMzLTY5ODNmOGQ5YTUwNCIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzU0MTI1MzEsImV4cCI6MTc3NTQ5ODkzMX0.fD6W-orvnZ0fQYm45UGZuWyuQer5WHoSOTmw2PyulbY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/listings/db23b47d-5227-47c9-a50c-079b88208f3a/applications",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "listings",
+            "db23b47d-5227-47c9-a50c-079b88208f3a",
+            "applications"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Tevkil ilanına başvur",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5NDM1OWE3LWVhNzMtNGQ3NS1hMzcyLTI2NDc4MWRhOTI3YiIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzUzODc0MzUsImV4cCI6MTc3NTQ3MzgzNX0.KYn8iUdbDlkPmfT2bz5F1yFfwVchtc40R1o7EW3GAG8",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"note\": \"Merhaba. Bu dosyaya başvurabilirim.\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/listings/5cce2f3c-9e39-4442-a43a-78b4b305facc/applications",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "listings",
+            "5cce2f3c-9e39-4442-a43a-78b4b305facc",
+            "applications"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Yapılan başvuruyu iptal et",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijc5NDM1OWE3LWVhNzMtNGQ3NS1hMzcyLTI2NDc4MWRhOTI3YiIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzUzODg5MjIsImV4cCI6MTc3NTQ3NTMyMn0.QIjcIBjWJbUDStf2i5wdyT6KvpIig_9h9kEhqRdTGNY",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/listings/5cce2f3c-9e39-4442-a43a-78b4b305facc/applications/36686b86-825d-4fec-ac13-75e46badda23",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "listings",
+            "5cce2f3c-9e39-4442-a43a-78b4b305facc",
+            "applications",
+            "36686b86-825d-4fec-ac13-75e46badda23"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

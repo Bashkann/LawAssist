@@ -1,6 +1,8 @@
 # Ünal Şener'in Web Frontend Görevleri
 
-**Front-end Test Videosu:** [Link buraya eklenecek](https://example.com)
+**Front-end Domain Adresi:** [https://lawassist-frontend.vercel.app](https://lawassist-frontend.vercel.app)
+
+**Front-end Test Videosu:** [YouTube Video](https://youtu.be/ve6BKtrqysg)
 
 ## 1. Admin Giriş Sayfası
 - **API Endpoint:** `POST /api/admin/login`
@@ -18,19 +20,11 @@
 - **Form Validasyonu:**
   - Email ve şifre boş bırakılamaz kontrolü
   - Hata durumunda ErrorMessage komponenti ile kırmızı uyarı mesajı
-  - Client-side ve server-side validation
 - **Kullanıcı Deneyimi:**
   - Başarılı giriş sonrası JWT token localStorage'a kaydedilir ("adminToken" key)
   - Admin bilgileri localStorage'a kaydedilir ("admin" key)
-  - Otomatik olarak Dashboard sayfasına yönlendirme
+  - Otomatik olarak Dashboard sayfasına yönlendirme (`/admin/dashboard`)
   - Hatalı giriş durumunda kullanıcı dostu hata mesajı gösterimi
-  - Grid pattern arka plan efekti ve radial gradient dekorasyon
-- **Teknik Detaylar:**
-  - Framework: React + Vite
-  - HTTP Client: Axios (axiosInstance üzerinden)
-  - Routing: React Router v6 (useNavigate)
-  - Stil: Tailwind CSS
-  - Token yönetimi: localStorage (adminToken / accessToken ayrımı)
 
 ## 2. Admin Dashboard Sayfası
 - **API Endpoint:** `GET /api/admin/lawyers` + `GET /api/admin/listings` (istatistik verileri için)
@@ -46,65 +40,70 @@
 - **Kullanıcı Deneyimi:**
   - Sayfa açılışında paralel API çağrıları (Promise.all) ile hızlı veri yükleme
   - Token yoksa otomatik admin login sayfasına yönlendirme
-  - Çıkış butonu ile localStorage temizleme ve login'e yönlendirme
   - İstatistik kartları anlık sistem durumunu yansıtır
 - **Teknik Detaylar:**
-  - Paralel API çağrıları: 4 adet eşzamanlı istek (lawyers total, listings total, active count, suspended count)
-  - Pagination bilgisinden toplam sayı çekme (pagination.total)
-  - useEffect ile component mount kontrolü
-  - useNavigate ile programatik yönlendirme
+  - 4 adet eşzamanlı API isteği: toplam avukat, toplam ilan, aktif avukat, askıdaki avukat
+  - Pagination bilgisinden toplam sayı çekme (`pagination.total`)
 
 ## 3. Avukat Yönetimi (Listeleme) Sayfası
 - **API Endpoint:** `GET /api/admin/lawyers?status={status}&page={page}&limit={limit}`
-- **Görev:** Sistemdeki tüm avukat hesaplarının filtrelenebilir tablo görünümünde listelenmesi
+- **Görev:** Sistemdeki tüm avukat hesaplarının filtrelenebilir görünümde listelenmesi
 - **UI Bileşenleri:**
   - AdminHeader komponenti
   - Başlık alanı ("Avukat Yönetimi" + toplam avukat sayısı)
-  - Filtre butonları (Tümü, Aktif, Askıda, Silinmiş) — rounded-xl pill style
+  - Filtre butonları (Tümü, Aktif, Askıda, Silinmiş)
   - Desktop: Tablo görünümü (Ad Soyad, Email, Baro, Durum, Kayıt Tarihi, Detay linki)
   - Mobile: Kart görünümü (avatar, isim, email, durum badge, baro, tarih)
   - Durum badge'leri (Aktif: yeşil, Askıda: turuncu, Silinmiş: kırmızı)
   - Pagination (Önceki / Sonraki butonları, sayfa göstergesi)
-  - Boş durum mesajı ("Avukat bulunamadı")
-  - Loading spinner
+  - Boş durum mesajı ve Loading spinner
 - **Kullanıcı Deneyimi:**
   - Filtre değiştiğinde sayfa 1'e sıfırlanır
   - Her avukat satırı/kartı tıklanabilir — detay sayfasına yönlendirir
-  - Responsive: Masaüstünde tablo, mobilde kart görünümü (hidden md:block / md:hidden)
-  - Avatar'da avukatın baş harfleri gösterilir (mobil kart görünümünde)
-  - Hover efektleri (satır: bg-blue-50/30, kart: border-blue-200)
+  - Responsive: Masaüstünde tablo, mobilde kart görünümü
+  - Avatar'da avukatın baş harfleri gösterilir
 - **Teknik Detaylar:**
   - Server-side pagination ve filtreleme
   - Query parametreleri: status, page, limit
-  - useEffect dependency array: [filter, page]
-  - Conditional rendering: desktop tablo vs mobile kart
 
-## 4. Avukat Detay Sayfası (Görüntüle + Askıya Al + Sil)
-- **API Endpoint:** `GET /api/admin/lawyers/{lawyerId}` + `PATCH /api/admin/lawyers/{lawyerId}/suspend` + `DELETE /api/admin/lawyers/{lawyerId}`
-- **Görev:** Belirli bir avukatın tüm detaylarını görüntüleme ve yönetim işlemleri (askıya alma, silme)
+## 4. Avukat Detay Sayfası (Görüntüle + Güncelle + Askıya Al + Sil)
+- **API Endpoint:**
+  - `GET /api/admin/lawyers/{lawyerId}` — Avukat detayı getirme
+  - `PUT /api/admin/lawyers/{lawyerId}` — Avukat bilgilerini güncelleme
+  - `PATCH /api/admin/lawyers/{lawyerId}/suspend` — Avukatı askıya alma
+  - `DELETE /api/admin/lawyers/{lawyerId}` — Avukat hesabını silme
+- **Görev:** Belirli bir avukatın tüm detaylarını görüntüleme ve yönetim işlemleri (güncelleme, askıya alma, silme)
 - **UI Bileşenleri:**
   - AdminHeader komponenti
   - Profil kartı: Mavi gradient üst şerit, avatar (baş harfler), isim, durum badge, email
   - Bilgi alanları: Telefon, Baro, Sicil No, Kayıt Tarihi (4 sütunlu grid)
   - "Yönetim İşlemleri" bölümü:
     - Tarih seçici (date input) + "Askıya Al" butonu (turuncu)
+    - "Düzenle" butonu (mavi) — tıklanınca modal açılır
     - "Hesabı Sil" butonu (kırmızı)
+  - Düzenle modal penceresi:
+    - Ad input alanı
+    - Soyad input alanı
+    - Email input alanı
+    - Telefon input alanı
+    - "Kaydet" butonu (mavi gradient) ve "İptal" butonu
+    - Hata mesajı gösterimi (ErrorMessage)
   - İlanları listesi (varsa): İlan başlığı, şehir, adliye, tarih, durum badge
   - Başvuruları listesi (varsa): İlan başlığı, şehir, tarih, not, durum badge
-  - Durum badge'leri: Aktif/Askıda/Silinmiş (avukat), Aktif/Pasif/İptal (ilan), Beklemede/Onaylandı/Reddedildi (başvuru)
   - Loading spinner ve hata mesajı
 - **Kullanıcı Deneyimi:**
-  - Askıya alma: Tarih seçildikten sonra butona basılır, sayfa otomatik yenilenir
-  - Silme: Browser confirm dialog ile onay istenir, silme sonrası sayfa yenilenir
+  - Güncelleme: "Düzenle" butonuna basılır → Modal açılır → Alanlar düzenlenir → "Kaydet" → Modal kapanır, sayfa yenilenir
+  - Askıya alma: Tarih seçildikten sonra "Askıya Al" butonuna basılır, sayfa otomatik yenilenir
+  - Silme: Browser confirm dialog ile onay istenir, silme sonrası sayfa yenilenir (soft delete — status: deleted)
   - Silinmiş hesaplarda "Yönetim İşlemleri" bölümü gizlenir
   - İlan ve başvuru yoksa ilgili bölümler gösterilmez
-  - Başvuru notları italik ve tırnak içinde gösterilir
-  - Hover efektleri (ilan/başvuru kartlarında bg-gray-50)
 - **Teknik Detaylar:**
   - useParams ile URL'den lawyerId alınır
-  - fetchLawyer fonksiyonu: avukat bilgileri + ilanlar + başvurular tek API çağrısında
+  - editOpen state: Modal açık/kapalı kontrolü
+  - editForm state: `{ firstName, lastName, email, phone }` — düzenleme form verileri
   - actionLoading state: "suspend" veya "delete" — hangi butonun loading olduğunu takip eder
-  - confirm() ile destructive action onayı
+  - handleUpdate fonksiyonu: `adminApi.updateLawyer(id, editForm)` çağrısı
+  - confirm() ile silme onayı
 
 ## 5. İlan Yönetimi Sayfası
 - **API Endpoint:** `GET /api/admin/listings?status={status}&page={page}&limit={limit}`
@@ -112,32 +111,29 @@
 - **UI Bileşenleri:**
   - AdminHeader komponenti
   - Başlık alanı ("İlan Yönetimi" + toplam ilan sayısı)
-  - Filtre butonları (Tümü, Aktif, Pasif, İptal) — rounded-xl pill style
+  - Filtre butonları (Tümü, Aktif, Pasif, İptal)
   - İlan kartları: Başlık, durum badge, şehir (konum ikonu), adliye, tarih
   - İlan sahibi bilgisi (Ad Soyad + email)
   - İlan açıklaması (varsa, 2 satır ile sınırlı — line-clamp-2)
   - "Avukat Detay" linki (ilan sahibinin detay sayfasına yönlendirir)
   - Pagination (Önceki / Sonraki)
-  - Boş durum mesajı ve loading spinner
+  - Boş durum mesajı ve Loading spinner
 - **Kullanıcı Deneyimi:**
   - Filtre değiştiğinde sayfa 1'e sıfırlanır
-  - Her ilanda ilan sahibinin bilgileri görünür (şeffaflık ve denetim)
+  - Her ilanda ilan sahibinin bilgileri görünür
   - "Avukat Detay" linki ile doğrudan ilan sahibinin profil sayfasına geçiş
-  - Konum ikonu (SVG) ile şehir bilgisi görsel olarak vurgulanır
-  - Hover efekti (shadow artışı)
   - Responsive kart düzeni
 - **Teknik Detaylar:**
   - Server-side pagination ve filtreleme
   - Query parametreleri: status, page, limit
   - owner_id üzerinden avukat detay sayfasına Link
-  - LISTING_STATUS constants ile durum renklendirmesi
 
 ## 6. Tevkil Başvurusunu Onaylama (Approve)
 - **API Endpoint:** `PATCH /api/applications/{applicationId}/approve`
 - **Görev:** İlan sahibi avukatın gelen başvuruları onaylaması — frontend'de "Onayla" butonu ile tetiklenir
 - **UI Bileşenleri:**
-  - ApplicationCard komponenti içinde "Onayla" butonu (yeşil gradient)
-  - Confirm dialog ("Bu başvuruyu onaylamak istediğinize emin misiniz?")
+  - ApplicationCard komponenti içinde "Onayla" butonu (yeşil gradient: #059669 → #10b981)
+  - Confirm dialog ("Bu başvuruyu onaylamak istediğinize emin misiniz? İlan kapatılacak ve diğer başvurular reddedilecektir.")
   - Loading state (buton üzerinde "...")
   - Başarı/hata alert mesajları
 - **İş Kuralları:**
@@ -146,6 +142,9 @@
   - Onaylama sonrası ilan otomatik kapatılır (status → cancelled)
   - Aynı ilana yapılan diğer bekleyen başvurular otomatik reddedilir
   - Sayfa otomatik yenilenir (onStatusChange callback)
+- **Teknik Detaylar:**
+  - `applicationsApi.approve(applicationId)` → `PATCH /api/applications/:id/approve`
+  - ApplicationCard komponenti MyListingsPage içinde kullanılır
 
 ## 7. Tevkil Başvurusunu Reddetme (Reject)
 - **API Endpoint:** `PATCH /api/applications/{applicationId}/reject`
@@ -159,6 +158,9 @@
   - Yalnızca ilan sahibi reddedebilir (Bearer Token kontrolü)
   - Yalnızca "pending" durumundaki başvurularda buton gösterilir
   - Reddetme sonrası sayfa otomatik yenilenir (onStatusChange callback)
+- **Teknik Detaylar:**
+  - `applicationsApi.reject(applicationId)` → `PATCH /api/applications/:id/reject`
+  - ApplicationCard komponenti MyListingsPage içinde kullanılır
 
 ## Ortak Bileşenler (Shared Components)
 
@@ -170,16 +172,24 @@
 - Çıkış: localStorage temizleme + admin login'e yönlendirme
 
 ### ApplicationCard
-- Başvuru kartı komponenti — başvuran avukat bilgileri, not, tarih, durum badge
-- "pending" durumunda Onayla + Reddet butonları gösterilir
-- Confirm dialog ile destructive action onayı
-- onStatusChange callback ile parent'a bildirim
+- Başvuru kartı komponenti — başvuran avukat bilgileri (ad, soyad, baro, sicil no), başvuru notu, tarih, durum badge
+- "pending" durumunda "Onayla" + "Reddet" butonları gösterilir
+- Confirm dialog ile onay istenir
+- onStatusChange callback ile parent komponente bildirim
 
 ### ApplicationBadge
 - Başvuru durumu rozeti (Beklemede: mavi, Onaylandı: yeşil, Reddedildi: kırmızı, İptal: gri)
 
 ### Yardımcı Dosyalar
-- **constants.js:** LAWYER_STATUS, LISTING_STATUS, APPLICATION_STATUS enum tanımları ve renk kodları
-- **formatDate.js:** Türkçe tarih formatlama fonksiyonları (formatDate, formatDateTime)
-- **adminApi.js:** Tüm admin API çağrıları (login, getLawyers, getLawyerById, updateLawyer, deleteLawyer, suspendLawyer, getListings)
-- **applicationsApi.js:** Başvuru onaylama/reddetme API çağrıları (approve, reject)
+- **constants.js:** LAWYER_STATUS, LISTING_STATUS, APPLICATION_STATUS enum tanımları ve renk kodları; TURKEY_CITIES (81 il) ve CITY_COURTHOUSES (ilçe adliyeleri) listeleri
+- **formatDate.js:** Türkçe tarih formatlama fonksiyonları (formatDate: "5 Nisan 2026", formatDateTime: "5 Nisan 2026 14:30")
+- **adminApi.js:** Tüm admin API çağrıları — login, getLawyers, getLawyerById, updateLawyer, deleteLawyer, suspendLawyer, getListings
+- **applicationsApi.js:** Başvuru onaylama ve reddetme API çağrıları — approve, reject
+
+## Teknik Altyapı
+
+- **Framework:** React 18 + Vite
+- **HTTP Client:** Axios (axiosInstance üzerinden, interceptor ile token yönetimi)
+- **Routing:** React Router v6
+- **Stil:** Tailwind CSS
+- **Token Yönetimi:** localStorage — admin tarafı "adminToken", avukat tarafı "accessToken" ayrımı

@@ -22,14 +22,14 @@
    - **API Metodu:** `PUT /admin/lawyers/{lawyerId}`
    - **Açıklama:** Adminin gerekli durumlarda avukat bilgilerini güncellemesini sağlar. Hatalı veya eksik bilgilerin düzeltilmesi amacıyla admin tarafından avukat profilinde değişiklik yapılabilir. Bu işlem yalnızca admin yetkisiyle erişilebilir.
 
-7. **Avukat Hesabını Sil**
-   - **API Metodu:** `DELETE /admin/lawyers/{lawyerId}`
-   - **Açıklama:** Sistemi kötüye kullanan avukatın hesabının admin tarafından tamamen silinmesini sağlar. Bu işlem geri alınamaz; avukata ait tüm veriler sistemden kalıcı olarak kaldırılır. Bu işlem yalnızca admin yetkisiyle erişilebilir.
-
-8. **Avukat Hesabını Belli Bir Süreliğine Pasif Hale Getir**
+7. **Avukat Hesabını Belli Bir Süreliğine Pasif Hale Getir**
    - **API Metodu:** `PATCH /admin/lawyers/{lawyerId}/suspend`
    - **Açıklama:** Avukatın hesabının kalıcı silinmeden, geçici olarak durdurulmasını/askıya alınmasını sağlar. Admin belirli bir süre veya koşul belirterek hesabı devre dışı bırakabilir. Süre dolduğunda veya koşul kalktığında hesap yeniden aktif hale getirilebilir. Bu işlem yalnızca admin yetkisiyle erişilebilir.
 
-9. **Konumdan Bağımsız Tüm İlanları Listele**
+8. **Konumdan Bağımsız Tüm İlanları Listele**
    - **API Metodu:** `GET /admin/listings`
    - **Açıklama:** Sistemdeki bütün ilanların durumlarının denetim amaçlı listelenmesini sağlar. Admin, konum filtresi olmaksızın tüm aktif, pasif veya beklemedeki ilanları görebilir. Bu işlem yalnızca admin yetkisiyle erişilebilir.
+
+9. **Avukat Hesabını Sil**
+   - **API Metodu:** `DELETE /admin/lawyers/{lawyerId}`
+   - **Açıklama:** Sistemi kötüye kullanan avukatın hesabının admin tarafından tamamen silinmesini sağlar. Bu işlem geri alınamaz; avukata ait tüm veriler sistemden kalıcı olarak kaldırılır. Bu işlem yalnızca admin yetkisiyle erişilebilir.

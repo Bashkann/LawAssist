@@ -1,6 +1,8 @@
 # Ünal Şener'in REST API Metotları
 
-**API Test Videosu:** [Tıklayınız](https://youtu.be/sqTmw-NXI_8)
+**Back-end Domain Adresi:** [https://lawassist-backend-nu.vercel.app/api](https://lawassist-backend-nu.vercel.app/api)
+
+**API Test Videosu:** [Youtube Video](https://youtu.be/onhXOSKdrdw)
 
 ## 1. Tevkil Başvurusunu Onayla
 - **Endpoint:** `PATCH /api/applications/{applicationId}/approve`
@@ -59,7 +61,7 @@
   ```json
   {
     "firstName": "AhmetGüncellendi",
-    "phone": "5559998877"
+    "phone": "5559998879"
   }
   ```
 - **Authentication:** Bearer Token gerekli (Admin yetkisi)

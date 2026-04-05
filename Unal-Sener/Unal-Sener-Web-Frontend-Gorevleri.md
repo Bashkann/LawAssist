@@ -2,7 +2,7 @@
 
 **Front-end Domain Adresi:** [https://lawassist-frontend.vercel.app](https://lawassist-frontend.vercel.app)
 
-**Front-end Test Videosu:** [YouTube Video](https://youtu.be/ve6BKtrqysg)
+**Front-end Test Videosu:** [YouTube Video](https://youtu.be/YxDd_R0M-Pg)
 
 ## 1. Admin Giriş Sayfası
 - **API Endpoint:** `POST /api/admin/login`

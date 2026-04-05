@@ -1,0 +1,285 @@
+{
+  "info": {
+    "_postman_id": "21001aaa-f683-43aa-b4e5-8368de35dd5c",
+    "name": "LawAssist",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50537533",
+    "_collection_link": "https://go.postman.co/collection/50537533-21001aaa-f683-43aa-b4e5-8368de35dd5c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Kullanıcı Kayıt Ol",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"first_name\": \"DENEME123\",\r\n  \"last_name\": \"ornek\",\r\n  \"email\": \"deneme123@email.com\",\r\n  \"password\": \"12345678\",\r\n  \"phone\": \"05122348955\",\r\n  \"bar_association\": \"İzmir Barosu\",\r\n  \"bar_number\": \"IZM-2026-167\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/auth/register",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Kullanıcı Giriş Yap",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"deneme123@email.com\",\r\n  \"password\": \"12345678\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/auth/login",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Şifremi Unuttum – Şifre Sıfırlama Maili Gönder",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"email\": \"deneme123@email.com\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/auth/forgot-password",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "forgot-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Yeni Şifre Belirleme",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"token\": \"ca378dd6697561728f5dc5c582e094dc3557d36d9b38b125f0192e72e61f234a\",\r\n  \"password\": \"yenisifre123\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/auth/reset-password",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "reset-password"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Avukat Profil Bilgilerini Görüntüle",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFiNDlkZTYwLTA2ZTQtNGJjYS04ODBkLTc1NDlkZjVhN2NkZCIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzUzMzg3NDksImV4cCI6MTc3NTQyNTE0OX0.ryAI8o_ndYANM3VjZ2XxO7_zHINGJ9_FEqTupkNlpwU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/lawyers/ab49de60-06e4-4bca-880d-7549df5a7cdd",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "lawyers",
+            "ab49de60-06e4-4bca-880d-7549df5a7cdd"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Avukat Profil Bilgilerini Güncelle",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFiNDlkZTYwLTA2ZTQtNGJjYS04ODBkLTc1NDlkZjVhN2NkZCIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzUzMzg3NDksImV4cCI6MTc3NTQyNTE0OX0.ryAI8o_ndYANM3VjZ2XxO7_zHINGJ9_FEqTupkNlpwU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"first_name\": \"yeniad\",\r\n  \"last_name\": \"yenisoyad\",\r\n  \"phone\": \"05551234567\",\r\n  \"bar_association\": \"İstanbul Barosu\",\r\n  \"bar_number\": \"ISP-2026-029\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/lawyers/ab49de60-06e4-4bca-880d-7549df5a7cdd",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "lawyers",
+            "ab49de60-06e4-4bca-880d-7549df5a7cdd"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Avukatın Kendi Açtığı İlanları Listele",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFiNDlkZTYwLTA2ZTQtNGJjYS04ODBkLTc1NDlkZjVhN2NkZCIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzUzMzg3NDksImV4cCI6MTc3NTQyNTE0OX0.ryAI8o_ndYANM3VjZ2XxO7_zHINGJ9_FEqTupkNlpwU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/lawyers/ab49de60-06e4-4bca-880d-7549df5a7cdd/listings",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "lawyers",
+            "ab49de60-06e4-4bca-880d-7549df5a7cdd",
+            "listings"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Avukat Hesabını Sil",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFiNDlkZTYwLTA2ZTQtNGJjYS04ODBkLTc1NDlkZjVhN2NkZCIsInJvbGUiOiJsYXd5ZXIiLCJpYXQiOjE3NzUzMzg3NDksImV4cCI6MTc3NTQyNTE0OX0.ryAI8o_ndYANM3VjZ2XxO7_zHINGJ9_FEqTupkNlpwU",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://lawassist-backend-nu.vercel.app/api/lawyers/ab49de60-06e4-4bca-880d-7549df5a7cdd",
+          "protocol": "https",
+          "host": [
+            "lawassist-backend-nu",
+            "vercel",
+            "app"
+          ],
+          "path": [
+            "api",
+            "lawyers",
+            "ab49de60-06e4-4bca-880d-7549df5a7cdd"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

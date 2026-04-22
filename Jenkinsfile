@@ -8,8 +8,13 @@ pipeline {
         }
         stage('Build ve Deploy') {
             steps {
-                sh 'docker compose down'
-                sh 'docker compose up -d --build'
+                
+                withCredentials([file(credentialsId: 'backend-env-file', variable: 'ENV_FILE')]) {                  
+                    sh 'cp $ENV_FILE backend/.env'
+                    
+                    sh 'docker compose down'
+                    sh 'docker compose up -d --build'
+                }
             }
         }
         stage('Sağlık Kontrolü') {

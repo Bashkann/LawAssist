@@ -4,6 +4,8 @@ const { hashPassword, comparePassword } = require('../../utils/hashPassword');
 const { generateAccessToken } = require('../../utils/generateToken');
 const { sendEmail } = require('../../utils/sendEmail');
 const ApiError = require('../../utils/apiError');
+const { sendToPasswordResetQueue } = require('../../../producer');
+const { incrementAttempt, resetAttempts } = require('../../middlewares/rateLimiter'); // ← ekle
 
 /**
  * Yeni avukat kaydı oluşturur
@@ -56,7 +58,7 @@ const registerLawyer = async (data) => {
  * @param {object} data - { email, password }
  * @returns {{ lawyer: object, accessToken: string }}
  */
-const loginLawyer = async (data) => {
+const loginLawyer = async (data, ip) => {  
   const { email, password } = data;
 
   // 1. Kullanıcıyı bul
@@ -70,6 +72,7 @@ const loginLawyer = async (data) => {
 
   // 2. Kullanıcı yok ya da silinmiş
   if (!lawyer || lawyer.status === 'deleted') {
+    await incrementAttempt(ip); 
     throw new ApiError(401, 'Email veya şifre hatalı.');
   }
 
@@ -85,10 +88,14 @@ const loginLawyer = async (data) => {
   // 4. Şifre doğru mu?
   const isMatch = await comparePassword(password, lawyer.password_hash);
   if (!isMatch) {
+    await incrementAttempt(ip); 
     throw new ApiError(401, 'Email veya şifre hatalı.');
   }
 
-  // 5. Token üret
+  // 5. Giriş başarılı → denemeleri sıfırla
+  await resetAttempts(ip); 
+
+  // 6. Token üret
   const accessToken = generateAccessToken({ id: lawyer.id, role: 'lawyer' });
 
   // password_hash'i response'a ekleme
@@ -135,22 +142,11 @@ const forgotPassword = async (email) => {
   const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
 
   // 6. Maili gönder
-  await sendEmail({
+  // 6. Maili gönder (Artık RabbitMQ üzerinden)
+  await sendToPasswordResetQueue({
     to: lawyer.email,
-    subject: 'Şifre Sıfırlama Talebi',
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2>Merhaba ${lawyer.first_name},</h2>
-        <p>Şifrenizi sıfırlamak için aşağıdaki bağlantıya tıklayın:</p>
-        <a href="${resetUrl}"
-           style="display:inline-block; padding:12px 24px; background:#1a56db; color:#fff;
-                  text-decoration:none; border-radius:6px; margin:16px 0;">
-          Şifremi Sıfırla
-        </a>
-        <p>Bu bağlantı <strong>1 saat</strong> geçerlidir.</p>
-        <p>Eğer bu talebi siz yapmadıysanız bu emaili görmezden gelebilirsiniz.</p>
-      </div>
-    `,
+    firstName: lawyer.first_name,
+    resetUrl: resetUrl
   });
 };
 

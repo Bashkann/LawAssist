@@ -21,7 +21,8 @@ const register = async (req, res, next) => {
  */
 const login = async (req, res, next) => {
   try {
-    const { lawyer, accessToken } = await loginLawyer(req.body);
+    const ip = req.ip; // ← eklendi
+    const { lawyer, accessToken } = await loginLawyer(req.body, ip); 
     res.status(200).json({
       success: true,
       message: 'Giriş başarılı.',

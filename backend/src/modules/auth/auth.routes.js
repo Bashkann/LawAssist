@@ -3,13 +3,12 @@ const router = express.Router();
 
 const { register, login, forgotPasswordHandler, resetPasswordHandler } = require('./auth.controller');
 const { validateRegister, validateLogin, validateForgotPassword, validateResetPassword } = require('./auth.validation');
-const { rateLimiter } = require('../../middlewares/rateLimiter'); 
 
 // POST /api/auth/register
 router.post('/register', validateRegister, register);
 
 // POST /api/auth/login
-router.post('/login', rateLimiter, validateLogin, login); 
+router.post('/login', validateLogin, login); 
 
 // POST /api/auth/forgot-password
 router.post('/forgot-password', validateForgotPassword, forgotPasswordHandler);

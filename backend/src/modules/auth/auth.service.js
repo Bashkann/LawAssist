@@ -5,6 +5,7 @@ const { generateAccessToken } = require('../../utils/generateToken');
 const { sendEmail } = require('../../utils/sendEmail');
 const ApiError = require('../../utils/apiError');
 
+
 /**
  * Yeni avukat kaydı oluşturur
  * @param {object} data - { first_name, last_name, email, password, phone?, bar_association?, bar_number? }
@@ -56,7 +57,7 @@ const registerLawyer = async (data) => {
  * @param {object} data - { email, password }
  * @returns {{ lawyer: object, accessToken: string }}
  */
-const loginLawyer = async (data) => {
+const loginLawyer = async (data) => {  
   const { email, password } = data;
 
   // 1. Kullanıcıyı bul
@@ -88,7 +89,7 @@ const loginLawyer = async (data) => {
     throw new ApiError(401, 'Email veya şifre hatalı.');
   }
 
-  // 5. Token üret
+  // 6. Token üret
   const accessToken = generateAccessToken({ id: lawyer.id, role: 'lawyer' });
 
   // password_hash'i response'a ekleme
@@ -135,6 +136,7 @@ const forgotPassword = async (email) => {
   const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
 
   // 6. Maili gönder
+  // 6. Maili gönder (Artık RabbitMQ üzerinden)
   await sendEmail({
     to: lawyer.email,
     subject: 'Şifre Sıfırlama Talebi',

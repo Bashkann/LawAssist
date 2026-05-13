@@ -8,7 +8,7 @@ const { validateRegister, validateLogin, validateForgotPassword, validateResetPa
 router.post('/register', validateRegister, register);
 
 // POST /api/auth/login
-router.post('/login', validateLogin, login);
+router.post('/login', validateLogin, login); 
 
 // POST /api/auth/forgot-password
 router.post('/forgot-password', validateForgotPassword, forgotPasswordHandler);

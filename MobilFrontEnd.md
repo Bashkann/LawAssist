@@ -8,19 +8,6 @@
 2. [Ahmet Kaan Başkan'ın Mobil Frontend Görevleri](Ahmet-Kaan-Baskan/Ahmet-Kaan-Baskan-Mobil-Frontend-Gorevleri.md)
 3. [Ünal Şener'in Mobil Frontend Görevleri](Unal-Sener/Unal-Sener-Mobil-Frontend-Gorevleri.md)
 
-
----
-
-# Mobil Frontend Görev Dağılımı
-
----
-
-## Grup Üyelerinin Mobil Frontend Görevleri
-
-1. [Mustafa Enes Koçaslan'ın Mobil Frontend Görevleri](Mustafa-Enes-Kocaslan/Mustafa-Enes-Kocaslan-Mobil-Frontend-Gorevleri.md)
-2. [Ahmet Kaan Başkan'ın Mobil Frontend Görevleri](Ahmet-Kaan-Baskan/Ahmet-Kaan-Baskan-Mobil-Frontend-Gorevleri.md)
-3. [Ünal Şener'in Mobil Frontend Görevleri](Unal-Sener/Unal-Sener-Mobil-Frontend-Gorevleri.md)
-
 ---
 
 ## Genel Mobil Frontend Prensipleri

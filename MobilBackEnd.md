@@ -1,7 +1,5 @@
 # Mobil Backend (REST API Bağlantısı) Görev Dağılımı
 
-Bu dokümanda, mobil uygulamanın REST API ile iletişimini sağlayan backend entegrasyon görevleri listelenmektedir. Her grup üyesi, kendisine atanan API endpoint'lerinin mobil uygulamadan çağrılması ve yönetilmesinden sorumludur.
-
 Mobil uygulama için ayrı bir backend geliştirilmemiştir. Web uygulaması için geliştirilen ve Vercel üzerinde deploy edilen mevcut REST API, mobil uygulama tarafından da aynen kullanılmaktadır. Mobil taraftaki backend entegrasyonu; `axiosInstance` yapılandırması, API servis modülleri, token yönetimi ve hata yakalama katmanlarından oluşmaktadır.
 
 **REST API Adresi:** [https://lawassist-backend-nu.vercel.app/](https://lawassist-backend-nu.vercel.app/)
